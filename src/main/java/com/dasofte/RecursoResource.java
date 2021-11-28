@@ -20,14 +20,12 @@ public class RecursoResource {
         return Response.ok(tipoRecurso).build();
     }
     @POST
-    @Path("guardar_recurso")
     @Transactional
     public Response guardarRecurso(Recursos recursos){
         recursos.persist();
         return Response.ok(recursos).build();
     }
     @GET
-    @Path("obtener_recurso")
     public Response obtenerRecursos(){
         return Response.ok(Recursos.listAll()).build();
     }

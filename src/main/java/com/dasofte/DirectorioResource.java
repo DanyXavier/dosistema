@@ -1,7 +1,9 @@
 package com.dasofte;
 
 import com.dasofte.modelos.Directorios;
+import com.dasofte.modelos.Importancia;
 import com.dasofte.services.UploadFileService;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -15,12 +17,10 @@ public class DirectorioResource {
     @Inject
     UploadFileService service;
     @GET
-    @Path("todos")
     public Response obtenerLosDirectorios(){
         return Response.ok(Directorios.listAll()).build();
     }
     @POST
-    @Path("save")
     @Transactional
     public Response guardarDirectorio(Directorios directorio){
          if (service.crearDirectorio(directorio)== null){
@@ -28,5 +28,12 @@ public class DirectorioResource {
          }
         directorio.persist();
         return Response.ok(directorio).build();
+    }
+    @POST
+    @Path("importancia")
+    @Transactional
+    public Response guardarImportancia(Importancia importancia){
+        importancia.persist();
+        return Response.ok(importancia).build();
     }
 }

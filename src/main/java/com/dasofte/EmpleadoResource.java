@@ -11,13 +11,11 @@ import javax.ws.rs.core.Response;
 @Path("/empleado")
 public class EmpleadoResource {
     @GET
-    @Path("todos")
     public Response obtenerEmpleados(){
         return Response.ok(Empleados.listAll()).build();
     }
 
     @POST
-    @Path("save")
     @Transactional
     public Response guardarEmpleado(Empleados empleado){
         empleado.persist();

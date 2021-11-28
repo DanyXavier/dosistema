@@ -1,10 +1,13 @@
 package com.dasofte.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "archivos")
 @Entity
@@ -33,23 +36,42 @@ public class Archivos extends PanacheEntityBase {
     @Column(name = "fecha_subida")
     public LocalDate fechaSubida;
 
-    @Column(name = "importancia")
-    public Long importancia;
-
-    @Column(name = "area")
-    public Long area;
-
-    @Column(name = "tipo_documento")
-    public Long tipoDocumento;
+    @ManyToOne
+    @JoinColumn(name = "importancia")
+    public Importancia importancia;
 
     @ManyToOne
-    @JoinColumn(name = "directorio")
-    public Directorios directorio;
+    @JoinColumn(name = "area")
+    public Areas area;
 
     @Column(name = "estado")
     public Boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "directorio")
+    @JsonIgnoreProperties("archivos")
+    public Directorios directorio;
+
+
     public static List<Archivos> findByNombre(String nombre){
         String contengan = "%"+nombre+"%";
         return Archivos.find("lower(arc_nombre) LIKE lower(?1)",contengan).list();
+    }
+
+    @Override
+    public String toString() {
+        return "Archivos{" +
+                "id=" + id +
+                ", archivo='" + archivo + '\'' +
+                ", ubicacionFisica='" + ubicacionFisica + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", nota='" + nota + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", fechaSubida=" + fechaSubida +
+                ", importancia=" + importancia +
+                ", area=" + area +
+                ", estado=" + estado +
+                ", directorio=" + directorio +
+                '}';
     }
 }

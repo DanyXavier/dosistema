@@ -12,13 +12,11 @@ import javax.ws.rs.core.Response;
 public class UsuarioResource {
 
     @GET
-    @Path("todos")
     public Response obtenerUsuarios(){
         return Response.ok(Usuario.listAll()).build();
     }
 
     @POST
-    @Path("save")
     @Transactional
     public Response guardarUsuario(Usuario usuarios){
         usuarios.persist();

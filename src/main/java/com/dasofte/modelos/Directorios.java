@@ -1,8 +1,11 @@
 package com.dasofte.modelos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Table(name = "directorios")
 @Entity
@@ -16,4 +19,16 @@ public class Directorios extends PanacheEntityBase {
     @Column(name = "directorio", length = 60)
     public String directorio;
 
+    @OneToMany(mappedBy = "directorio")
+    @JsonIgnoreProperties("directorio")
+    public Set<Archivos> archivos;
+
+    @Override
+    public String toString() {
+        return "Directorios{" +
+                "id=" + id +
+                ", directorio='" + directorio + '\'' +
+                ", archivos=" + archivos +
+                '}';
+    }
 }

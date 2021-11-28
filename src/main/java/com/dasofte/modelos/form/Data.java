@@ -5,7 +5,7 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import javax.ws.rs.FormParam;
 
 public class Data {
-    @FormParam("directorioId")
+    @FormParam("directorio")
     public String directorioId;
     @FormParam("dirName")
     public String dirName;
@@ -23,8 +23,6 @@ public class Data {
     public String fechaCreacion;
     @FormParam("fechaSubida")
     public String fechaSubida;
-    @FormParam("tipo")
-    public String tipo;
     //public Usuarios usId;
     @FormParam("nota")
     public String nota;
@@ -35,7 +33,7 @@ public class Data {
     @FormParam("file")
     public InputPart file;
 
-    public Data(String directorioId, String dirName, String nombre, String ubicacionFisica, String area, String importancia, String descripcion, String fechaCreacion, String fechaSubida, String tipo, String nota, String estado, InputPart file) {
+    public Data(String directorioId, String dirName, String nombre, String ubicacionFisica, String area, String importancia, String descripcion, String fechaCreacion, String fechaSubida, String nota, String estado, InputPart file) {
         this.directorioId = directorioId;
         this.dirName = dirName;
         this.nombre = nombre;
@@ -45,7 +43,6 @@ public class Data {
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
         this.fechaSubida = fechaSubida;
-        this.tipo = tipo;
         this.nota = nota;
         this.estado = estado;
         this.file = file;
@@ -66,7 +63,6 @@ public class Data {
                 ", descripcion='" + descripcion + '\'' +
                 ", fechaCreacion='" + fechaCreacion + '\'' +
                 ", fechaSubida='" + fechaSubida + '\'' +
-                ", tipo='" + tipo + '\'' +
                 ", nota='" + nota + '\'' +
                 ", estado='" + estado + '\'' +
                 ", file=" + file +
