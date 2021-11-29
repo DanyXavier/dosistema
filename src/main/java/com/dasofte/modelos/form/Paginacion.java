@@ -12,6 +12,10 @@ public class Paginacion {
     @DefaultValue("10")
     public int pageSize;
 
+    @QueryParam("total")
+    public int total;
+
+
     @Override
     public String toString() {
         return "Paginacion{" +

@@ -20,12 +20,17 @@ public class ArchivoResource {
 
     @Inject
     UploadFileService service;
-
+    @GET
+    @Path("paginacion")
+    @Transactional
+    public Response pagination(@BeanParam Paginacion paginacion){
+        PanacheQuery<Archivos> archivos = Archivos.findAll().page(Page.of(paginacion.pageSize,paginacion.pageNum));
+        paginacion.total = archivos.pageCount();
+        return Response.ok(paginacion).build();
+    }
     @GET
     @Transactional
     public Response obtenerArchivos(@BeanParam Paginacion paginacion){
-        //PanacheQuery<ArchivosDto> archivos = Archivos.findAll().project(ArchivosDto.class);
-        //archivos.page(Page.of(paginacion.pageNum, paginacion.pageSize));
         return Response.ok(Archivos.findAll().page(Page.of(paginacion.pageNum, paginacion.pageSize)).list()).build();
     }
 
