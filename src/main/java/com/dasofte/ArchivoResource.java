@@ -24,7 +24,7 @@ public class ArchivoResource {
     @Path("paginacion")
     @Transactional
     public Response pagination(@BeanParam Paginacion paginacion){
-        PanacheQuery<Archivos> archivos = Archivos.findAll().page(Page.of(paginacion.pageSize,paginacion.pageNum));
+        PanacheQuery<Archivos> archivos = Archivos.findAll().page(Page.of(paginacion.pageNum,paginacion.pageSize));
         paginacion.total = archivos.pageCount();
         return Response.ok(paginacion).build();
     }
