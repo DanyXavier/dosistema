@@ -36,4 +36,9 @@ public class DirectorioResource {
         importancia.persist();
         return Response.ok(importancia).build();
     }
+    @GET
+    @Path("importancia")
+    public Response obtenerImportancia(){
+        return Response.ok(Importancia.listAll()).build();
+    }
 }

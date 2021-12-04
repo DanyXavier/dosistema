@@ -8,11 +8,13 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Page;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.File;
 import java.time.LocalDate;
 
 @Path("/archivo")
@@ -57,5 +59,17 @@ public class ArchivoResource {
     @Path("find_by_nombre")
     public Response obtenerArchivosPorNombre(@QueryParam("nombre") String nombre){
         return Response.ok(Archivos.findByNombre(nombre)).build();
+    }
+
+    @POST
+    @Path("download")
+    @Transactional
+    public Response descargarArchivo(Archivos archivos){
+        System.out.println(archivos);
+        File file = service.obtenerArchivo(archivos.directorio.directorio,archivos.archivo);
+        System.out.println(file.exists());
+        Response.ResponseBuilder response = Response.ok(file);
+        response.header("Content-Disposition", "attachment;filename=" + file);
+        return response.build();
     }
 }

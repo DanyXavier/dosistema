@@ -63,6 +63,10 @@ public class UploadFileService {
         }
         return filename;
     }
+    public File obtenerArchivo(String dirName,String filename){
+        String fileName = ROOT_DIR+ File.separator+dirName+File.separator+filename;
+        return new File(fileName);
+    };
     public Directorios crearDirectorio(Directorios dirname){
         try {
             Path path = Path.of(ROOT_DIR +File.separator+ dirname.directorio);
